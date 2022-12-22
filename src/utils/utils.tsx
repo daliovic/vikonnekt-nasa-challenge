@@ -1,5 +1,5 @@
 export const formatNEOs = (object: any) => {
-  if (!object) return
+  if (!object) return []
   const array = Object.values(object) as any
   return array[0].map((item: any) => [
     item.name,
@@ -10,6 +10,7 @@ export const formatNEOs = (object: any) => {
 }
 
 export const sortByAverageDiameter = (array: any[]) => {
-  if (!array) return
+  if (!array) return []
   return array.sort((a: any, b: any) => (b![1] + b![2]) / 2 - (a![1] + a![2]) / 2)
 }
+
