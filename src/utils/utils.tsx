@@ -13,3 +13,4 @@ export const sortByAverageDiameter = (array: any[]) => {
   if (!array) return []
   return array.sort((a: any, b: any) => (b![1] + b![2]) / 2 - (a![1] + a![2]) / 2)
 }
+

@@ -3,6 +3,7 @@ import BarChart from './components/BarChart'
 import FilterForm from './components/FilterForm'
 import TableView from './components/TableView'
 import useAxios from './hooks/useAxios'
+import { CSVLink } from 'react-csv'
 import { formatNEOs, sortByAverageDiameter } from './utils/utils'
 function App() {
   // useAxios is a custom hook that performs an HTTP GET request to the NASA's NEO API to retrieve today's NEOs
@@ -37,12 +38,12 @@ function App() {
 
   return (
     <div className='container py-5'>
-      <h1 className='page-title'>Near Earth Objects Diameters for {new Date().toLocaleDateString()} </h1>
+      <h1 className='page-title mb-5'>Near Earth Objects Diameters for {new Date().toLocaleDateString()} </h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error.message}</p>}
       {!loading && !error && formattedNEOs && (
         <div>
-          <div className='d-flex gap-5 align-items-center'>
+          <div className='d-flex gap-5 align-items-center flex-wrap'>
             <FilterForm
               options={[...new Set(formattedNEOs.map((i: any) => i![3]) as string[])]}
               selectChangeHandler={selectChangeHandler}
@@ -56,6 +57,9 @@ function App() {
               />
               <label htmlFor='table-view'>Toggle Table View</label>
             </span>
+            <button className='btn btn-primary'>
+              <CSVLink data={filteredNEOs ? filteredNEOs : formattedNEOs}>Download CSV</CSVLink>
+            </button>
           </div>
           {isTableView ? (
             <TableView NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} />

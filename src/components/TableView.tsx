@@ -1,9 +1,8 @@
 import React from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 
 function TableView({ NEOs }: { NEOs: any }) {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className=' mt-5'>
+    <div className=' mt-5'>
       <table className='table table-striped table-hover'>
         <thead>
           <tr>
@@ -14,21 +13,19 @@ function TableView({ NEOs }: { NEOs: any }) {
           </tr>
         </thead>
         <tbody>
-          <AnimatePresence>
             {NEOs.map((item: any, i: number) => {
               return (
-                <motion.tr initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} key={item[0]}>
+                <tr key={item[0]}>
                   <td>{i}</td>
                   <td>{item[0]}</td>
                   <td>{item[1]}</td>
                   <td>{item[2]}</td>
-                </motion.tr>
+                </tr>
               )
             })}
-          </AnimatePresence>
         </tbody>
       </table>
-    </motion.div>
+    </div>
   )
 }
 
