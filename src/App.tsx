@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import BarChart from './components/BarChart'
 import FilterForm from './components/FilterForm'
+import TableView from './components/TableView'
 import useAxios from './hooks/useAxios'
 import { formatNEOs, sortByAverageDiameter } from './utils/utils'
 function App() {
@@ -11,8 +12,11 @@ function App() {
   })
   // formattedNEOs is an array of NEOs with their name, min and max diameter, and orbit planet
   // filteredNEOs is a subset of formattedNEOs based on the selected orbital body in the filter form
+  // isTableView is a boolean state variable that determines whether to render data in a table view or not
+
   const [formattedNEOs, setFormattedNEOs] = useState<any>(null)
   const [filteredNEOs, setFilteredNEOs] = useState<[any?] | null>(null)
+  const [isTableView, setIsTableView] = useState(false)
 
   // selectChangeHandler is a function that updates the filteredNEOs state based on the selected orbital body
   const selectChangeHandler = (s: string) => {
@@ -38,11 +42,26 @@ function App() {
       {error && <p>{error.message}</p>}
       {!loading && !error && formattedNEOs && (
         <div>
-          <FilterForm
-            options={[...new Set(formattedNEOs.map((i: any) => i![3]) as string[])]}
-            selectChangeHandler={selectChangeHandler}
-          />
-          <BarChart formattedNEOs={filteredNEOs ? filteredNEOs : formattedNEOs} />
+          <div className='d-flex gap-5 align-items-center'>
+            <FilterForm
+              options={[...new Set(formattedNEOs.map((i: any) => i![3]) as string[])]}
+              selectChangeHandler={selectChangeHandler}
+            />
+            <span>
+              <input
+                name='table-view'
+                type='checkbox'
+                className='me-2'
+                onChange={(e) => setIsTableView(e.target.checked)}
+              />
+              <label htmlFor='table-view'>Toggle Table View</label>
+            </span>
+          </div>
+          {isTableView ? (
+            <TableView NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} />
+          ) : (
+            <BarChart NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} />
+          )}
         </div>
       )}
     </div>

@@ -1,14 +1,14 @@
 import React from 'react'
 
 import Chart from 'react-google-charts'
-export default function BarChart({ formattedNEOs }: { formattedNEOs: any }) {
+export default function BarChart({ NEOs }: { NEOs: any }) {
   return (
     <div>
       <Chart
         chartType='BarChart'
         data={[
           ['Name', 'Max Est Diameter', 'Min Est Diameter'],
-          ...formattedNEOs?.map((i: any) => [i![0], i![1], i![2]]),
+          ...NEOs?.map((i: any) => [i![0], i![1], i![2]]),
         ]}
         options={{
           title: 'NEOs Estimated Diameters',
