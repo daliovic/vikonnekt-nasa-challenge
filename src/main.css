@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+html * {
+  font-family: 'Quicksand', sans-serif;
+}
+body a {
+  text-decoration: none;
+  color: inherit;
+}
+body a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+body {
+  overflow: overlay;
+}
+.controls {
+  z-index: 1;
+  position: relative;
+}
+
+.csv-button {
+  font-weight: 600;
+  padding-left: 40px;
+  padding-right: 40px;
+  min-width: 200px;
+  min-height: 38px;
+  position: relative;
+}
+.csv-button span {
+  min-width: 77px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+
+.download-animation {
+  filter: brightness(500%);
+  width: 22px;
+  margin-top: -2px;
+}

@@ -5,6 +5,9 @@ import TableView from './components/TableView'
 import useAxios from './hooks/useAxios'
 import { CSVLink } from 'react-csv'
 import { formatNEOs, sortByAverageDiameter } from './utils/utils'
+import { motion, AnimatePresence } from 'framer-motion'
+import DownloadAnimation from './components/Animations/DownloadAnimation'
+import ControlsBar from './components/ControlsBar'
 function App() {
   // useAxios is a custom hook that performs an HTTP GET request to the NASA's NEO API to retrieve today's NEOs
   const { response, loading, error } = useAxios({
@@ -18,13 +21,6 @@ function App() {
   const [formattedNEOs, setFormattedNEOs] = useState<any>(null)
   const [filteredNEOs, setFilteredNEOs] = useState<[any?] | null>(null)
   const [isTableView, setIsTableView] = useState(false)
-
-  // selectChangeHandler is a function that updates the filteredNEOs state based on the selected orbital body
-  const selectChangeHandler = (s: string) => {
-    setFilteredNEOs(formattedNEOs)
-    const filteredData = s !== '' ? (formattedNEOs.filter((item: any) => item![3] === s) as any) : formattedNEOs
-    setFilteredNEOs(filteredData)
-  }
 
   useEffect(() => {
     // sortByAverageDiameter and formatNEOs are utility functions that transform the API response data into an array of NEOs with their name, min and max diameter, and orbital body
@@ -43,29 +39,11 @@ function App() {
       {error && <p>{error.message}</p>}
       {!loading && !error && formattedNEOs && (
         <div>
-          <div className='d-flex gap-5 align-items-center flex-wrap'>
-            <FilterForm
-              options={[...new Set(formattedNEOs.map((i: any) => i![3]) as string[])]}
-              selectChangeHandler={selectChangeHandler}
-            />
-            <span>
-              <input
-                name='table-view'
-                type='checkbox'
-                className='me-2'
-                onChange={(e) => setIsTableView(e.target.checked)}
-              />
-              <label htmlFor='table-view'>Toggle Table View</label>
-            </span>
-            <button className='btn btn-primary'>
-              <CSVLink data={filteredNEOs ? filteredNEOs : formattedNEOs}>Download CSV</CSVLink>
-            </button>
-          </div>
-          {isTableView ? (
-            <TableView NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} />
-          ) : (
-            <BarChart NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} />
-          )}
+          <ControlsBar options={{ setFilteredNEOs, setIsTableView, formattedNEOs, filteredNEOs }} />
+          <AnimatePresence mode='wait' presenceAffectsLayout={true}>
+            {isTableView && <TableView NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} key='TableView' />}
+            {!isTableView && <BarChart NEOs={filteredNEOs ? filteredNEOs : formattedNEOs} key='BarChart' />}
+          </AnimatePresence>
         </div>
       )}
     </div>
