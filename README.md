@@ -43,3 +43,12 @@ The project is organized into the following folders:
   - **`components`**: Contains the React components for the app.
   - **`hooks`**: Contains custom hooks used throughout the app.
   - **`utils`**: Contains utility functions used throughout the app.
+  
+## :page_with_curl: Libraries 
+Some of the libraries that were used in the app 
+
+  - **`Axios`**
+  - **`Bootstrap`**
+  - **`Framer Motion`**
+  - **`React Google Charts`**
+  - **`React Lottie`**
