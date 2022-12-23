@@ -2,6 +2,8 @@
 
 Welcome to the NASA Near Earth Objects app! This app was built using React, with support for TypeScript. The project was initialized with Vite.
 
+[Working demo link](https://nasa-neos.onrender.com/)
+
 <br>
 
 ## :rocket: Getting Started
@@ -9,8 +11,8 @@ Welcome to the NASA Near Earth Objects app! This app was built using React, with
 To get started, clone the repository and install the dependencies:
 
 ```
-git clone https://github.com/daliovic/vkonnekt-nasa-challenge.git
-cd vkonnekt-nasa-challenge
+git clone https://github.com/daliovic/vikonnekt-nasa-challenge.git
+cd vikonnekt-nasa-challenge
 npm install
 ```
 Once the dependencies are installed, you can start the development server by running:
